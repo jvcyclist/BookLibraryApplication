@@ -4,13 +4,9 @@ public class VolumeInfo
 {
     private IndustryIdentifiers[] industryIdentifiers;
 
-    private String printType;
-
-    private ReadingModes readingModes;
+    private String pageCount;
 
     private String previewLink;
-
-    private String canonicalVolumeLink;
 
     private String language;
 
@@ -18,149 +14,139 @@ public class VolumeInfo
 
     private ImageLinks imageLinks;
 
+    private String subtitle;
+
+    private String publishedDate;
+    
     private String publisher;
+    
+    private String description;
 
-    private String maturityRating;
+    private String[] categories;
 
-    private String allowAnonLogging;
+    private String[] authors;
+    
+    private double averageRating;
 
-    private String contentVersion;
+	public IndustryIdentifiers[] getIndustryIdentifiers() {
+		return industryIdentifiers;
+	}
 
-    private String infoLink;
+	public void setIndustryIdentifiers(IndustryIdentifiers[] industryIdentifiers) {
+		this.industryIdentifiers = industryIdentifiers;
+	}
 
-    public IndustryIdentifiers[] getIndustryIdentifiers ()
-    {
-        return industryIdentifiers;
-    }
+	public String getPageCount() {
+		return pageCount;
+	}
 
-    public void setIndustryIdentifiers (IndustryIdentifiers[] industryIdentifiers)
-    {
-        this.industryIdentifiers = industryIdentifiers;
-    }
+	public void setPageCount(String pageCount) {
+		this.pageCount = pageCount;
+	}
 
-    public String getPrintType ()
-    {
-        return printType;
-    }
+	public String getPreviewLink() {
+		return previewLink;
+	}
 
-    public void setPrintType (String printType)
-    {
-        this.printType = printType;
-    }
+	public void setPreviewLink(String previewLink) {
+		this.previewLink = previewLink;
+	}
 
-    public ReadingModes getReadingModes ()
-    {
-        return readingModes;
-    }
+	public String getLanguage() {
+		return language;
+	}
 
-    public void setReadingModes (ReadingModes readingModes)
-    {
-        this.readingModes = readingModes;
-    }
+	public void setLanguage(String language) {
+		this.language = language;
+	}
 
-    public String getPreviewLink ()
-    {
-        return previewLink;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public void setPreviewLink (String previewLink)
-    {
-        this.previewLink = previewLink;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public String getCanonicalVolumeLink ()
-    {
-        return canonicalVolumeLink;
-    }
+	public ImageLinks getImageLinks() {
+		return imageLinks;
+	}
 
-    public void setCanonicalVolumeLink (String canonicalVolumeLink)
-    {
-        this.canonicalVolumeLink = canonicalVolumeLink;
-    }
+	public void setImageLinks(ImageLinks imageLinks) {
+		this.imageLinks = imageLinks;
+	}
 
-    public String getLanguage ()
-    {
-        return language;
-    }
+	public String getSubtitle() {
+		return subtitle;
+	}
 
-    public void setLanguage (String language)
-    {
-        this.language = language;
-    }
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
+	}
 
-    public String getTitle ()
-    {
-        return title;
-    }
+	public String getPublishedDate() {
+		return publishedDate;
+	}
 
-    public void setTitle (String title)
-    {
-        this.title = title;
-    }
+	public void setPublishedDate(String publishedDate) {
+		this.publishedDate = publishedDate;
+	}
 
-    public ImageLinks getImageLinks ()
-    {
-        return imageLinks;
-    }
+	public String getPublisher() {
+		return publisher;
+	}
 
-    public void setImageLinks (ImageLinks imageLinks)
-    {
-        this.imageLinks = imageLinks;
-    }
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
 
-    public String getPublisher ()
-    {
-        return publisher;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setPublisher (String publisher)
-    {
-        this.publisher = publisher;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public String getMaturityRating ()
-    {
-        return maturityRating;
-    }
+	public String[] getCategories() {
+		return categories;
+	}
 
-    public void setMaturityRating (String maturityRating)
-    {
-        this.maturityRating = maturityRating;
-    }
+	public void setCategories(String[] categories) {
+		this.categories = categories;
+	}
 
-    public String getAllowAnonLogging ()
-    {
-        return allowAnonLogging;
-    }
+	public String[] getAuthors() {
+		return authors;
+	}
 
-    public void setAllowAnonLogging (String allowAnonLogging)
-    {
-        this.allowAnonLogging = allowAnonLogging;
-    }
+	public void setAuthors(String[] authors) {
+		this.authors = authors;
+	}
 
-    public String getContentVersion ()
-    {
-        return contentVersion;
-    }
+	public double getAverageRating() {
+		return averageRating;
+	}
 
-    public void setContentVersion (String contentVersion)
-    {
-        this.contentVersion = contentVersion;
-    }
+	public void setAverageRating(double averageRating) {
+		this.averageRating = averageRating;
+	}
+	
+	public String getISBN13(){
+		
+		for(IndustryIdentifiers ii : industryIdentifiers) {
+			
+			if(ii.getType().equals("ISBN_13")) {
+				return ii.getIdentifier();
+			}
+			
+		}
 
-    public String getInfoLink ()
-    {
-        return infoLink;
-    }
+		return null;
+		
+	}
+	
+	
+	
 
-    public void setInfoLink (String infoLink)
-    {
-        this.infoLink = infoLink;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "ClassPojo [industryIdentifiers = "+industryIdentifiers+", printType = "+printType+", readingModes = "+readingModes+", previewLink = "+previewLink+", canonicalVolumeLink = "+canonicalVolumeLink+", language = "+language+", title = "+title+", imageLinks = "+imageLinks+", publisher = "+publisher+", maturityRating = "+maturityRating+", allowAnonLogging = "+allowAnonLogging+", contentVersion = "+contentVersion+", infoLink = "+infoLink+"]";
-    }
 }

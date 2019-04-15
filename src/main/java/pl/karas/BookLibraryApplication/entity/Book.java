@@ -1,92 +1,67 @@
 package pl.karas.BookLibraryApplication.entity;
-public class Book{
-    private SaleInfo saleInfo;
 
-    private String kind;
+import java.util.Arrays;
 
+/**
+ * @author patryk
+ *
+ */
+
+public class Book
+{
     private VolumeInfo volumeInfo;
-
-    private String etag;
 
     private String id;
 
-    private AccessInfo accessInfo;
+	public VolumeInfo getVolumeInfo() {
+		return volumeInfo;
+	}
 
-    private String selfLink;
+	public void setVolumeInfo(VolumeInfo volumeInfo) {
+		this.volumeInfo = volumeInfo;
+	}
 
-    public SaleInfo getSaleInfo ()
-    {
-        return saleInfo;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setSaleInfo (SaleInfo saleInfo)
-    {
-        this.saleInfo = saleInfo;
-    }
+	public void setId(String id) { 
+	
+		this.id = id;
+	}
 
-    public String getKind ()
-    {
-        return kind;
-    }
+	
+	public void setISBN() {
+		if(volumeInfo.getISBN13()!=null) {
+			this.id = volumeInfo.getISBN13();
+			}
+		}
+	
+	
+	
+	
+	@Override
+	public String toString() {
 
-    public void setKind (String kind)
-    {
-        this.kind = kind;
-    }
+		return
+				"-------------------------------------------------------------------\n\n"+
+				"Book id: " + id + "\n " +
+				"Book title: " + volumeInfo.getTitle() + "\n " +
+				"Book subtitle: " + volumeInfo.getSubtitle() + "\n " +
+				"Book publisher: " + volumeInfo.getPublisher() + "\n " +
+				"Book publishedDate: " + volumeInfo.getPublishedDate() + "\n " +
+				"Book description: " + volumeInfo.getDescription() + "\n " +
+				"Book pageCount: " + volumeInfo.getPageCount()+ "\n " +
+				"Book thumbnailUrl: " + volumeInfo.getImageLinks().getThumbnail() + "\n " +
+				"Book langauge: " + volumeInfo.getLanguage() + "\n " +
+				"Book previewLink: " + volumeInfo.getPreviewLink() + "\n " +
+				"Book averageRating: " + volumeInfo.getAverageRating() + "\n " +
+				"Book authors: " + Arrays.toString(volumeInfo.getAuthors()) + "\n " +
+				"Book categories: " + Arrays.toString(volumeInfo.getCategories()) + "\n " +
+				"-------------------------------------------------------------------\n\n\n"
+				;
+		
+	}
 
-    public VolumeInfo getVolumeInfo ()
-    {
-        return volumeInfo;
-    }
-
-    public void setVolumeInfo (VolumeInfo volumeInfo)
-    {
-        this.volumeInfo = volumeInfo;
-    }
-
-    public String getEtag ()
-    {
-        return etag;
-    }
-
-    public void setEtag (String etag)
-    {
-        this.etag = etag;
-    }
-
-    public String getId ()
-    {
-        return id;
-    }
-
-    public void setId (String id)
-    {
-        this.id = id;
-    }
-
-    public AccessInfo getAccessInfo ()
-    {
-        return accessInfo;
-    }
-
-    public void setAccessInfo (AccessInfo accessInfo)
-    {
-        this.accessInfo = accessInfo;
-    }
-
-    public String getSelfLink ()
-    {
-        return selfLink;
-    }
-
-    public void setSelfLink (String selfLink)
-    {
-        this.selfLink = selfLink;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "ClassPojo [saleInfo = "+saleInfo+", kind = "+kind+", volumeInfo = "+volumeInfo+", etag = "+etag+", id = "+id+", accessInfo = "+accessInfo+", selfLink = "+selfLink+"]";
-    }
+	
 }

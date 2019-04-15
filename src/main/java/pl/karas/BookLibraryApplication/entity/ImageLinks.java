@@ -32,4 +32,3 @@ public class ImageLinks
         return "ClassPojo [thumbnail = "+thumbnail+", smallThumbnail = "+smallThumbnail+"]";
     }
 }
-		

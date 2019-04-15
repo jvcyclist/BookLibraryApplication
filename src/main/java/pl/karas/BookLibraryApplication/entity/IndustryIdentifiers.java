@@ -26,10 +26,15 @@ public class IndustryIdentifiers
         this.type = type;
     }
 
+    
+    
+
     @Override
     public String toString()
     {
         return "ClassPojo [identifier = "+identifier+", type = "+type+"]";
     }
+    
+  
+    
 }
-		
