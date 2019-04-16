@@ -28,14 +28,6 @@ public class BookFilter {
 		return this.filteredBooks;
 	}
 
-	public List<BookSerialize> filterByTitle(String isbn) {
-
-		this.filteredBooks = books.stream().filter(x -> x.getTitle().toLowerCase().contains(isbn.toLowerCase()))
-								  .collect(Collectors.toList());
-
-		return this.filteredBooks;
-	}
-
 	public List<BookSerialize> getBooks() {
 		return books;
 	}

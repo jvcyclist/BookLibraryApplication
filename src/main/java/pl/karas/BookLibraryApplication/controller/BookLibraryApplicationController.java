@@ -1,6 +1,5 @@
 package pl.karas.BookLibraryApplication.controller;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,28 +15,43 @@ import pl.karas.BookLibraryApplication.entity.BookSerialize;
 
 @RestController
 public class BookLibraryApplicationController {
-	
+
 	private BookSupport books = new BookSupport();
-	
+
 	@RequestMapping("/book")
-	public List<BookSerialize> getBook(@RequestParam(value="isbn", defaultValue="") String isbn,@RequestParam(value="title", defaultValue="") String title, @RequestParam(value="category", defaultValue="") String category) {
+	public List<BookSerialize> getBook(@RequestParam(value = "isbn", defaultValue = "") String isbn,
+			@RequestParam(value = "category", defaultValue = "") String category) {
+
+		if (isbn.equals("") && category.equals("")) {
+			return BookSupport.books;
+		}
+
+		if (!(isbn.equals(""))) {
+
+			BookSupport.books = new ArrayList<BookSerialize>(BookSupport.filter.filterByISBN(isbn));
+			if (BookSupport.books.isEmpty()) {
+				throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+			} else {
+				return BookSupport.books;
+			}
+
+		}
+
+		if (!(category.equals(""))) {
+
+			BookSupport.books = new ArrayList<BookSerialize>(BookSupport.filter.filterByCategory(category));
+			return BookSupport.books;
+
+		}
 		
-		if(!(isbn.equals(""))) {
-			return BookSupport.books = new ArrayList<BookSerialize>(BookSupport.filter.filterByISBN(isbn));	
-		}
+		return BookSupport.books;
 
-		if (BookSupport.books.isEmpty()){
-			throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
-		}
-
-			return books.books = new ArrayList<BookSerialize>(books.filter.filterByCategory(category.toLowerCase()));
-		//return books.books = new ArrayList<BookSerialize>(books.filter.filterByTitle(title));
 	}
-	
+
 	@RequestMapping("/ratings")
-	public List<AuthorRating> getAuthorsRatings(){
-		
+	public List<AuthorRating> getAuthorsRatings() {
+
 		return books.authorRatings;
 	}
-	
+
 }
