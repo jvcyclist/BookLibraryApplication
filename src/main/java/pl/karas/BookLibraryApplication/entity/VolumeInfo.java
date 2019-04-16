@@ -178,7 +178,6 @@ public class VolumeInfo {
 		try {
 			date = dateFormat.parse(input);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

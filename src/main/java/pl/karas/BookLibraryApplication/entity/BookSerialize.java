@@ -1,7 +1,5 @@
 package pl.karas.BookLibraryApplication.entity;
 
-import java.util.Arrays;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,8 +8,6 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 @JsonInclude(Include.NON_NULL)
 public class BookSerialize {
 	
-	private Book book;
-
 	private String isbn;
 	
 	private String title;
@@ -166,15 +162,29 @@ public class BookSerialize {
 	
 	public boolean isFromCategory(String category) {
 		
-		if(category.isEmpty()) {return false;}
+		if(categories == null) {return false;}
+		if(categories.length == 0) {return false;}
 		
-		if(Arrays.asList(categories).contains(category)) {return true;}
-	
-		else {
-		return false;}       
+		for(int i =0; i<categories.length;i++) {
+			if(categories[i].toLowerCase().contains(category.toLowerCase())){
+				return true;
+			}
+		}
+		return false;
 	}
 	
+	public boolean hasAuthors() {
+		if(getAuthors() == null) {
+			return false;
+			}
+		if(getAuthors().length == 0) {
+			return false;
+			}
+		return true;
+	}
 	
-	
-	
+	public boolean hasRating() {
+		return getAverageRating()!=0;	
+		}
+
 }

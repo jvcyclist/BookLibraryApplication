@@ -1,6 +1,5 @@
 package pl.karas.BookLibraryApplication.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,20 +21,16 @@ public class IndustryIdentifiers
     {
         return identifier;
     }
-
-
+    
     public void setIdentifier (String identifier)
     {
         this.identifier = identifier;
     }
 
-
-  
     public String getType ()
     {
         return type;
     }
-
 
     public void setType (String type)
     {
@@ -49,17 +44,5 @@ public class IndustryIdentifiers
     	return false;
     	
     }
-    
-    
-    
-    
-
-    @Override
-    public String toString()
-    {
-        return "ClassPojo [identifier = "+identifier+", type = "+type+"]";
-    }
-    
-  
     
 }

@@ -1,64 +1,43 @@
 package pl.karas.BookLibraryApplication.controller;
 
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import pl.karas.BookLibraryApplication.entity.Book;
+import pl.karas.BookLibraryApplication.BookSupport;
+import pl.karas.BookLibraryApplication.entity.AuthorRating;
 import pl.karas.BookLibraryApplication.entity.BookSerialize;
-import pl.karas.BookLibraryApplication.entity.JsonMain;
-import pl.karas.BookLibraryApplication.filter.BookFilter;
 
 @RestController
 public class BookLibraryApplicationController {
 	
-static ObjectMapper mapper = new ObjectMapper();
-	
-	static BookFilter filter = new BookFilter();
-
-	static List<JsonMain> items = new ArrayList<JsonMain>();
-	
-	static List<BookSerialize> books = new ArrayList<BookSerialize>();
-
-	static String pathJsonRead = System.getProperty("user.dir") + "/src/main/resources/books.json";
-	
-	//static String pathJsonSave = System.getProperty("user.dir") + "/src/main/resources/books2.json";
-
-	public BookLibraryApplicationController() throws JsonParseException, JsonMappingException, IOException {
-
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-		      .configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-		
-		items = mapper.readValue(new File(pathJsonRead), new TypeReference<ArrayList<JsonMain>>(){});
-
-		for(JsonMain i: items) {
-			i.setISBN();
-		}
-		
-		for(Book b: items.get(0).getBooks()) {
-			books.add(new BookSerialize(b));
-		}
-		
-		filter.setBooks(books);
-	
-	}
+	private BookSupport books = new BookSupport();
 	
 	@RequestMapping("/book")
-	public List<BookSerialize> getBook(@RequestParam(value="isbn", defaultValue="") String isbn) {
+	public List<BookSerialize> getBook(@RequestParam(value="isbn", defaultValue="") String isbn,@RequestParam(value="title", defaultValue="") String title, @RequestParam(value="category", defaultValue="") String category) {
+		
+		if(!(isbn.equals(""))) {
+			return BookSupport.books = new ArrayList<BookSerialize>(BookSupport.filter.filterByISBN(isbn));	
+		}
 
-		return books = new ArrayList<BookSerialize>(filter.filterByISBN(isbn));
+		if (BookSupport.books.isEmpty()){
+			throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+		}
+
+			return books.books = new ArrayList<BookSerialize>(books.filter.filterByCategory(category.toLowerCase()));
+		//return books.books = new ArrayList<BookSerialize>(books.filter.filterByTitle(title));
 	}
-
+	
+	@RequestMapping("/ratings")
+	public List<AuthorRating> getAuthorsRatings(){
+		
+		return books.authorRatings;
+	}
+	
 }
