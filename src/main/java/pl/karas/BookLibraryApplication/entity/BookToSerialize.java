@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 @JsonInclude(Include.NON_NULL)
-public class BookSerialize {
+public class BookToSerialize {
 	
 	private String isbn;
 	
@@ -24,7 +24,7 @@ public class BookSerialize {
 	@JsonInclude(Include.NON_DEFAULT)
 	private int pageCount;
 
-	@JsonUnwrapped
+	
 	@JsonProperty("imageLinks")
 	private String thumbnailUrl;
 
@@ -143,7 +143,7 @@ public class BookSerialize {
 		this.categories = categories;
 	}
 
-	public BookSerialize(Book book) {
+	public BookToSerialize(Book book) {
 		super();
 		this.isbn = book.getId();
 		this.title = book.getVolumeInfo().getTitle();
@@ -184,7 +184,7 @@ public class BookSerialize {
 	}
 	
 	public boolean hasRating() {
-		return getAverageRating()!=0;	
+		return getAverageRating()!=0; 	
 		}
 
 }

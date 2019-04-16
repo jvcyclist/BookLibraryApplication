@@ -181,8 +181,7 @@ public class VolumeInfo {
 			e.printStackTrace();
 		}
 
-	    unixTime = (long) date.getTime();
-	    return unixTime;
+		return unixTime = (long) date.getTime();
 	}
 
 }

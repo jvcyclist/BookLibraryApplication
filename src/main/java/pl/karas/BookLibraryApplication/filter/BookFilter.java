@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import pl.karas.BookLibraryApplication.entity.BookSerialize;
+import pl.karas.BookLibraryApplication.entity.BookToSerialize;
 
 public class BookFilter {
 
-	private List<BookSerialize> books = new ArrayList<BookSerialize>();
+	private List<BookToSerialize> books = new ArrayList<BookToSerialize>();
 
-	private List<BookSerialize> filteredBooks = new ArrayList<BookSerialize>();
+	private List<BookToSerialize> filteredBooks = new ArrayList<BookToSerialize>();
 
-	public List<BookSerialize> filterByCategory(String category) {
+	public List<BookToSerialize> filterByCategory(String category) {
 
 		this.filteredBooks = books.stream().filter(x -> x.isFromCategory(category.toLowerCase()))
 								  .collect(Collectors.toList());
@@ -20,7 +20,7 @@ public class BookFilter {
 		return this.filteredBooks;
 	}
 
-	public List<BookSerialize> filterByISBN(String isbn) {
+	public List<BookToSerialize> filterByISBN(String isbn) {
 
 		this.filteredBooks = books.stream().filter(x -> x.getIsbn().toLowerCase().contains(isbn.toLowerCase()))
 								  .collect(Collectors.toList());
@@ -28,19 +28,19 @@ public class BookFilter {
 		return this.filteredBooks;
 	}
 
-	public List<BookSerialize> getBooks() {
+	public List<BookToSerialize> getBooks() {
 		return books;
 	}
 
-	public void setBooks(List<BookSerialize> books) {
+	public void setBooks(List<BookToSerialize> books) {
 		this.books = books;
 	}
 
-	public List<BookSerialize> getFilteredBooks() {
+	public List<BookToSerialize> getFilteredBooks() {
 		return filteredBooks;
 	}
 
-	public void setFilteredBooks(List<BookSerialize> filteredBooks) {
+	public void setFilteredBooks(List<BookToSerialize> filteredBooks) {
 		this.filteredBooks = filteredBooks;
 	}
 

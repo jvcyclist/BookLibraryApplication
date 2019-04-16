@@ -11,15 +11,15 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import pl.karas.BookLibraryApplication.BookSupport;
 import pl.karas.BookLibraryApplication.entity.AuthorRating;
-import pl.karas.BookLibraryApplication.entity.BookSerialize;
+import pl.karas.BookLibraryApplication.entity.BookToSerialize;
 
 @RestController
 public class BookLibraryApplicationController {
 
-	private BookSupport books = new BookSupport();
+	private BookSupport bookSupport = new BookSupport();
 
 	@RequestMapping("/book")
-	public List<BookSerialize> getBook(@RequestParam(value = "isbn", defaultValue = "") String isbn,
+	public List<BookToSerialize> getBook(@RequestParam(value = "isbn", defaultValue = "") String isbn,
 			@RequestParam(value = "category", defaultValue = "") String category) {
 
 		if (isbn.equals("") && category.equals("")) {
@@ -28,7 +28,7 @@ public class BookLibraryApplicationController {
 
 		if (!(isbn.equals(""))) {
 
-			BookSupport.books = new ArrayList<BookSerialize>(BookSupport.filter.filterByISBN(isbn));
+			BookSupport.books = new ArrayList<BookToSerialize>(BookSupport.filter.filterByISBN(isbn));
 			if (BookSupport.books.isEmpty()) {
 				throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
 			} else {
@@ -39,7 +39,7 @@ public class BookLibraryApplicationController {
 
 		if (!(category.equals(""))) {
 
-			BookSupport.books = new ArrayList<BookSerialize>(BookSupport.filter.filterByCategory(category));
+			BookSupport.books = new ArrayList<BookToSerialize>(BookSupport.filter.filterByCategory(category));
 			return BookSupport.books;
 
 		}
@@ -50,8 +50,7 @@ public class BookLibraryApplicationController {
 
 	@RequestMapping("/ratings")
 	public List<AuthorRating> getAuthorsRatings() {
-
-		return books.authorRatings;
+		return bookSupport.authorRatings;
 	}
 
 }

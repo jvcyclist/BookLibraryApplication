@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import pl.karas.BookLibraryApplication.entity.AuthorRating;
 import pl.karas.BookLibraryApplication.entity.Book;
-import pl.karas.BookLibraryApplication.entity.BookSerialize;
+import pl.karas.BookLibraryApplication.entity.BookToSerialize;
 import pl.karas.BookLibraryApplication.entity.JsonMain;
 import pl.karas.BookLibraryApplication.filter.BookFilter;
 
@@ -27,7 +27,7 @@ public class BookSupport {
 
 	static List<JsonMain> items = new ArrayList<JsonMain>();
 
-	public static List<BookSerialize> books = new ArrayList<BookSerialize>();
+	public static List<BookToSerialize> books = new ArrayList<BookToSerialize>();
 
 	static String pathJsonRead = System.getProperty("user.dir") + "/src/main/resources/books.json";
 
@@ -67,13 +67,13 @@ public class BookSupport {
 	public void mappingInputBookToOutput() {
 
 		for (Book b : items.get(0).getBooks()) {
-			books.add(new BookSerialize(b));
+			books.add(new BookToSerialize(b));
 		}
 	}
 
 	public void mappingBookSerializeToAuthors() {
 
-		for (BookSerialize b : books) {
+		for (BookToSerialize b : books) {
 
 			if ((b.hasAuthors()) && (b.hasRating())) {
 
@@ -94,8 +94,8 @@ public class BookSupport {
 			@Override
 			public int compare(AuthorRating a1, AuthorRating a2) {
 				
-				if(a1.getAverageRating() < a2.getAverageRating()) return -1;
-				if(a1.getAverageRating() > a2.getAverageRating()) return 1;
+				if(a1.getAverageRating() > a2.getAverageRating()) return -1;
+				if(a1.getAverageRating() < a2.getAverageRating()) return 1;
 				return 0;
 
 			}
