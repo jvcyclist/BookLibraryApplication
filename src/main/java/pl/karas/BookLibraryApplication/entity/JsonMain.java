@@ -1,24 +1,29 @@
 package pl.karas.BookLibraryApplication.entity;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 @JsonInclude(Include.NON_NULL)
 public class JsonMain {
 
 	@JsonProperty("items")
-	private Book[] books;
+	private List<Book> books;
 
 	private int counter=0;
 	
+	@JsonIgnore
     private String requestedUrl;
 
-	public Book[] getBooks() {
+	public List<Book> getBooks() {
 		return books;
 	}
 
-	public void setBooks(Book[] books) {
+	public void setBooks(List<Book> books) {
 		this.books = books;
 	}
 
@@ -39,8 +44,8 @@ public class JsonMain {
 	}
 	
 	public void setISBN() {                   
-		for(Book b:books) {
-			b.setISBN();
+		for(Book b : books) {
+			b.setIsbn();
 		}
 	}
 	

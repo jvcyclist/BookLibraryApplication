@@ -1,36 +1,49 @@
 package pl.karas.BookLibraryApplication.entity;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 @JsonInclude(Include.NON_NULL)
-public class VolumeInfo
-{
-    private IndustryIdentifiers[] industryIdentifiers;
+public class VolumeInfo {
+	private String title;
 
-    private String pageCount;
+	private String subtitle;
 
-    private String previewLink;
+	private String publisher;
 
-    private String language;
+	@JsonInclude(Include.NON_DEFAULT)
+	private long publishedDate;
 
-    private String title;
+	private String description;
+	
+	@JsonInclude(Include.NON_DEFAULT)
+	private int pageCount;
 
-    private ImageLinks imageLinks;
+	@JsonProperty(access = Access.WRITE_ONLY)
+	private IndustryIdentifiers[] industryIdentifiers;
 
-    private String subtitle;
+	@JsonUnwrapped
+	@JsonProperty("imageLinks")
+	private ImageLinks imageLinks;
 
-    private String publishedDate;
-    
-    private String publisher;
-    
-    private String description;
+	private String language;
 
-    private String[] categories;
+	private String previewLink;
 
-    private String[] authors;
-    
-    private double averageRating;
+	@JsonInclude(Include.NON_DEFAULT)
+	private double averageRating;
+
+	private String[] authors;
+
+	private String[] categories;
 
 	public IndustryIdentifiers[] getIndustryIdentifiers() {
 		return industryIdentifiers;
@@ -40,11 +53,11 @@ public class VolumeInfo
 		this.industryIdentifiers = industryIdentifiers;
 	}
 
-	public String getPageCount() {
+	public int getPageCount() {
 		return pageCount;
 	}
 
-	public void setPageCount(String pageCount) {
+	public void setPageCount(int pageCount) {
 		this.pageCount = pageCount;
 	}
 
@@ -88,12 +101,12 @@ public class VolumeInfo
 		this.subtitle = subtitle;
 	}
 
-	public String getPublishedDate() {
+	public long getPublishedDate() {
 		return publishedDate;
 	}
 
 	public void setPublishedDate(String publishedDate) {
-		this.publishedDate = publishedDate;
+		this.publishedDate = parseToUnix(publishedDate);
 	}
 
 	public String getPublisher() {
@@ -135,22 +148,42 @@ public class VolumeInfo
 	public void setAverageRating(double averageRating) {
 		this.averageRating = averageRating;
 	}
-	
-	public String getISBN13(){
-		
-		for(IndustryIdentifiers ii : industryIdentifiers) {
-			
-			if(ii.getType().equals("ISBN_13")) {
+
+	public String getISBN13() {
+		for (IndustryIdentifiers ii : industryIdentifiers) {
+			if (ii.isIBN13()) {
 				return ii.getIdentifier();
 			}
-			
 		}
-
 		return null;
-		
 	}
 	
+	public long parseToUnix(String input) {
+		
+		DateFormat dateFormat;
+		
+		long unixTime = 0;
+		
+		Date date = null;
+		if(input==null) {
 	
-	
+		}
+		if (input.length()==4) {
+			dateFormat = new SimpleDateFormat("yyyy");
+		}
+		else {
+		dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		}
+	    
+		try {
+			date = dateFormat.parse(input);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	    unixTime = (long) date.getTime();
+	    return unixTime;
+	}
 
 }
