@@ -1,6 +1,6 @@
 # BookLibraryApplication
 
-### Simple REST API application to use for get information about books in library.
+### Simple REST API application to use for get information about books in library from json file.
 ### Created with:
 * Java
 * SpringBoot
