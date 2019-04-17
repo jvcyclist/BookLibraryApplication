@@ -44,6 +44,8 @@ public class VolumeInfo {
 	private String[] authors;
 
 	private String[] categories;
+	
+	long unixTime = 0;
 
 	public IndustryIdentifiers[] getIndustryIdentifiers() {
 		return industryIdentifiers;
@@ -161,9 +163,7 @@ public class VolumeInfo {
 	public long parseToUnix(String input) {
 		
 		DateFormat dateFormat;
-		
-		long unixTime = 0;
-		
+
 		Date date = null;
 		if(input==null) {
 	

@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.server.ResponseStatusException;
 
 import pl.karas.BookLibraryApplication.BookSupport;
 import pl.karas.BookLibraryApplication.entity.AuthorRating;
@@ -30,18 +30,17 @@ public class BookLibraryApplicationController {
 
 			BookSupport.books = new ArrayList<BookToSerialize>(BookSupport.filter.filterByISBN(isbn));
 			if (BookSupport.books.isEmpty()) {
-				throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+				throw new ResponseStatusException(
+						  HttpStatus.NOT_FOUND, "Book not found"
+						);
 			} else {
 				return BookSupport.books;
 			}
-
 		}
 
 		if (!(category.equals(""))) {
-
 			BookSupport.books = new ArrayList<BookToSerialize>(BookSupport.filter.filterByCategory(category));
 			return BookSupport.books;
-
 		}
 		
 		return BookSupport.books;

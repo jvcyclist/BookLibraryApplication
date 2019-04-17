@@ -3,7 +3,6 @@ package pl.karas.BookLibraryApplication.entity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 @JsonInclude(Include.NON_NULL)
 public class BookToSerialize {
