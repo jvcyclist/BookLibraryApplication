@@ -8,6 +8,11 @@
 * JUnit 4
 * REST Assured
 
+## Requirements
+
+* Maven 3.3 or newer
+* JDK 8 or newer
+
 ## How to build
 
 ### Go to project destination and run command "mvn clean install". Project will build automatically.
