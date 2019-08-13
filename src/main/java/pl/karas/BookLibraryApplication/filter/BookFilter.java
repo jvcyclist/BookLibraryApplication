@@ -22,7 +22,7 @@ public class BookFilter {
 
 	public List<BookToSerialize> filterByISBN(String isbn) {
 
-		this.filteredBooks = books.stream().filter(x -> x.getIsbn().toLowerCase().contains(isbn.toLowerCase()))
+		this.filteredBooks = books.stream().filter(x -> x.getIsbn().toLowerCase().equals(isbn.toLowerCase()))
 								  .collect(Collectors.toList());
 
 		return this.filteredBooks;

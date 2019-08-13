@@ -19,21 +19,37 @@ import pl.karas.BookLibraryApplication.entity.BookToSerialize;
 import pl.karas.BookLibraryApplication.entity.JsonMain;
 import pl.karas.BookLibraryApplication.filter.BookFilter;
 
-public class BookSupport {
-	
+public class BookResponse {
+
 	static ObjectMapper mapper = new ObjectMapper();
 
-	public static BookFilter filter = new BookFilter();
+	public BookFilter filter = new BookFilter();
 
-	static List<JsonMain> items = new ArrayList<JsonMain>();
+	private List<JsonMain> items = new ArrayList<JsonMain>();
 
-	public static List<BookToSerialize> books = new ArrayList<BookToSerialize>();
+	private List<BookToSerialize> response = new ArrayList<BookToSerialize>();
 
 	static String pathJsonRead = System.getProperty("user.dir") + "/src/main/resources/books.json";
 
-	public static List<AuthorRating> authorRatings = new ArrayList<AuthorRating>();
+	public List<AuthorRating> authorRatings = new ArrayList<AuthorRating>();
 
-	public BookSupport() {
+	public List<BookToSerialize> getResponse() {
+		return response;
+	}
+
+	public void setResponse(List<BookToSerialize> response) {
+		this.response = response;
+	}
+
+	public List<AuthorRating> getAuthorRatings() {
+		return authorRatings;
+	}
+
+	public void setAuthorRatings(List<AuthorRating> authorRatings) {
+		this.authorRatings = authorRatings;
+	}
+
+	public BookResponse() {
 
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 				.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
@@ -41,17 +57,13 @@ public class BookSupport {
 		try {
 			items = mapper.readValue(new File(pathJsonRead), new TypeReference<ArrayList<JsonMain>>() {
 			});
-		} catch (JsonParseException e) {
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		setIsbnOfBooks();
 		mappingInputBookToOutput();
 
-		filter.setBooks(books);
+		filter.setBooks(response);
 
 		mappingBookSerializeToAuthors();
 		sortAuthorRatings();
@@ -67,13 +79,13 @@ public class BookSupport {
 	public void mappingInputBookToOutput() {
 
 		for (Book b : items.get(0).getBooks()) {
-			books.add(new BookToSerialize(b));
+			response.add(new BookToSerialize(b));
 		}
 	}
 
 	public void mappingBookSerializeToAuthors() {
 
-		for (BookToSerialize b : books) {
+		for (BookToSerialize b : response) {
 
 			if ((b.hasAuthors()) && (b.hasRating())) {
 
@@ -93,9 +105,11 @@ public class BookSupport {
 
 			@Override
 			public int compare(AuthorRating a1, AuthorRating a2) {
-				
-				if(a1.getAverageRating() > a2.getAverageRating()) return -1;
-				if(a1.getAverageRating() < a2.getAverageRating()) return 1;
+
+				if (a1.getAverageRating() > a2.getAverageRating())
+					return -1;
+				if (a1.getAverageRating() < a2.getAverageRating())
+					return 1;
 				return 0;
 
 			}
