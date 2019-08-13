@@ -62,7 +62,7 @@ public class BookLibraryApplicationController {
 
 	}
 
-	@RequestMapping("/ratings")
+	@RequestMapping("/booksratings")
 	public List<AuthorRating> getAuthorsRatings() {
 		
 		bookResponse = new BookResponse();

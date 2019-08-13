@@ -6,7 +6,7 @@
 * SpringBoot
 * Jackson
 * JUnit 4
-* REST Assured
+* REST Assured 
 
 ## Requirements
 
@@ -25,6 +25,16 @@
 
 ## More info
 
-### Application will start on port 8080 on your local host. e.g after build and run you should go to http://localhost:8080/book for get all of books in JSON file. Alias /book?="isbn" give you book find by "isbn" identificator. /book?category=computers give you all books which are from computers category.Alias /ratings give you average ratings of authors sorted descending. If there are not books matched by isbn User get 404 status code. If there are not books matched by category User get empty list.
+### Application will start on port 8080 on your local host. 
+
+###Go to  http://localhost:8080/api/allbooks for get all of books in JSON file.  (Return in JSON file)
+
+### Go to http://localhost:8080/api/book/isbn for get book by ISBN (Where is "isbn" you should provide value of isbn) (Return in JSON file)
+
+### Go to http://localhost:8080/api/books/category  for get book by ISBN (Where is "category" you should provide value of category) (Return in JSON file)
+
+### Go to http://localhost:8080/api/booksratings for get book authors ratings. (Return in JSON file)
+
+If there are not books matched User get 404 status code.
 
 #### Used Design Pattern: Composite Pattern. Provided json file has complex structure. To make main POJO class with book informations which can be mapped from JSON file (VolumeInfo etc.) I compose few objects to make structure similar as Json items.
