@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -20,7 +21,7 @@ public class BookLibraryApplicationController {
 
 	private BookResponse bookResponse;
 
-	@RequestMapping("/book/{isbn}")
+	@RequestMapping("/books/{isbn}")
 	public List<BookToSerialize> getBookByIsbn(@PathVariable("isbn") String isbn) {
 
 		bookResponse = new BookResponse();
@@ -39,26 +40,19 @@ public class BookLibraryApplicationController {
 
 	}
 
-	@RequestMapping("/books/{category}")
-	public List<BookToSerialize> getBooksByCategory(@PathVariable("category") String category) {
+	@RequestMapping("/books")
+	public List<BookToSerialize> getBooks(@RequestParam(name = "category", defaultValue = "") String category) {
 
 		bookResponse = new BookResponse();
-		
-		if (!(StringUtils.isEmpty(category))) {
+
+		if (category.isEmpty()){
+			return bookResponse.getResponse();
+
+		}
+		else {
 			bookResponse.setResponse(new ArrayList<BookToSerialize>(bookResponse.filter.filterByCategory(category)));
 			return bookResponse.getResponse();
 		}
-
-		return bookResponse.getResponse();
-
-	}
-
-	@RequestMapping("/allbooks")
-	public List<BookToSerialize> getBookByIsbn() {
-
-		bookResponse = new BookResponse();
-		
-		return bookResponse.getResponse();
 
 	}
 

@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Arrays;
+import java.util.List;
+
 @JsonInclude(Include.NON_NULL)
 public class BookToSerialize {
 	
@@ -158,18 +161,15 @@ public class BookToSerialize {
 		this.authors = book.getVolumeInfo().getAuthors();
 		this.categories = book.getVolumeInfo().getCategories();
 	}
-	
+
 	public boolean isFromCategory(String category) {
-		
-		if(categories == null) {return false;}
-		if(categories.length == 0) {return false;}
-		
-		for(int i =0; i<categories.length;i++) {
-			if(categories[i].toLowerCase().contains(category.toLowerCase())){
-				return true;
-			}
+		if(categories == null || categories.length == 0) {
+			return false;
 		}
-		return false;
+		else {
+			return Arrays.asList(categories).stream()
+						.anyMatch(c -> c.equalsIgnoreCase(category));
+		}
 	}
 	
 	public boolean hasAuthors() {

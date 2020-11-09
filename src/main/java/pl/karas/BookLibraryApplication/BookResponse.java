@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -81,9 +82,10 @@ public class BookResponse {
 		for (Book b : items.get(0).getBooks()) {
 			response.add(new BookToSerialize(b));
 		}
+
 	}
 
-	public void mappingBookSerializeToAuthors() {
+    public void mappingBookSerializeToAuthors() {
 
 		for (BookToSerialize b : response) {
 
@@ -100,22 +102,9 @@ public class BookResponse {
 	}
 
 	public void sortAuthorRatings() {
-
-		authorRatings = authorRatings.stream().sorted(new Comparator<AuthorRating>() {
-
-			@Override
-			public int compare(AuthorRating a1, AuthorRating a2) {
-
-				if (a1.getAverageRating() > a2.getAverageRating())
-					return -1;
-				if (a1.getAverageRating() < a2.getAverageRating())
-					return 1;
-				return 0;
-
-			}
-
-		}).collect(Collectors.toList());
-
+		authorRatings = authorRatings.stream()
+				.sorted(Comparator.comparing(AuthorRating::getAverageRating, Comparator.reverseOrder()))
+				.collect(Collectors.toList());
 	}
 
 }
