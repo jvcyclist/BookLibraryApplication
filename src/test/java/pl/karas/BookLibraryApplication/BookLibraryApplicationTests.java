@@ -32,35 +32,35 @@ public class BookLibraryApplicationTests {
 	 @Test
 	 public void isBookReturn200() {
 		 given().when()
-		 			.get("/book")
+		 			.get("/books")
 		 		.then().statusCode(200);
 	 }
 	 
 	 @Test
 	 public void isWrongIsbnReturn404() {
 		 given().when()
-		 			.get("/book?isbn=3455")
+		 			.get("/books?isbn=3455")
 		 		.then().statusCode(404);
 	 }
 	 
 	 @Test
 	 public void isWrongCategoryReturn200() {
 		 given().when()
-		 			.get("/book?category=xxaaxx")
+		 			.get("/books?category=xxaaxx")
 		 		.then().statusCode(200);
 	 }
 	 
 	 @Test
 	 public void isRatingsReturn400() {
 		 given().when()
-		 			.get("/ratings")
+		 			.get("/bookratings")
 		 		.then().statusCode(200);
 	 }
 	 
 	 @Test
 	 public void isBookReturn200WithExpectedIsbnAndTitle() {
 		 given().when()
-		 			.get("/book?=isbn=9780080568782")
+		 			.get("/books?=isbn=9780080568782")
 		 		.then().statusCode(200)
 		 		.body("title", hasItems("TCP/IP Sockets in Java"));
 	 }	 

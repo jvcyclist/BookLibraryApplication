@@ -21,36 +21,23 @@ public class BookLibraryApplicationController {
 
 	private BookResponse bookResponse;
 
-	@RequestMapping("/books/{isbn}")
-	public List<BookToSerialize> getBookByIsbn(@PathVariable("isbn") String isbn) {
-
-		bookResponse = new BookResponse();
-		
-		if (!(StringUtils.isEmpty(isbn))) {
-
-			bookResponse.setResponse(new ArrayList<BookToSerialize>(bookResponse.filter.filterByISBN(isbn)));
-			if (bookResponse.getResponse().isEmpty()) {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found");
-			} else {
-				bookResponse.getResponse();
-			}
-		}
-
-		return bookResponse.getResponse();
-
-	}
 
 	@RequestMapping("/books")
-	public List<BookToSerialize> getBooks(@RequestParam(name = "category", defaultValue = "") String category) {
+	public List<BookToSerialize> getBooks(@RequestParam(name = "category", defaultValue = "") String category,@RequestParam(name = "isbn", defaultValue = "") String isbn) {
 
 		bookResponse = new BookResponse();
 
-		if (category.isEmpty()){
-			return bookResponse.getResponse();
+		if (!(category.isEmpty())){
+			bookResponse.setResponse(new ArrayList<BookToSerialize>(bookResponse.filter.filterByCategory(category)));
+		}
 
+		if (!(isbn.isEmpty())) {
+			bookResponse.setResponse(new ArrayList<BookToSerialize>(bookResponse.filter.filterByISBN(isbn)));
+		}
+		if (bookResponse.getResponse().isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found");
 		}
 		else {
-			bookResponse.setResponse(new ArrayList<BookToSerialize>(bookResponse.filter.filterByCategory(category)));
 			return bookResponse.getResponse();
 		}
 
