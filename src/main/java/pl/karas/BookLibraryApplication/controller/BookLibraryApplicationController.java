@@ -47,7 +47,7 @@ public class BookLibraryApplicationController {
 	public List<AuthorRating> getAuthorsRatings() {
 		
 		bookResponse = new BookResponse();
-		
+:
 		return bookResponse.authorRatings;
 	}
 
