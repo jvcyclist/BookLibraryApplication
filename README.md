@@ -27,11 +27,11 @@
 
 ### Application will start on port 8080 on your local host. 
 
-### Go to  http://localhost:8080/api/allbooks for get all of books in JSON file.  (Return in JSON file)
+### Go to  http://localhost:8080//books for get all of books in JSON file.  (Return in JSON file)
 
-### Go to http://localhost:8080/api/book/isbn for get book by ISBN (Where is "isbn" you should provide value of isbn) (Return in JSON file)
+### Go to http://localhost:8080/api/books/isbn for get book by ISBN (Where is "isbn" you should provide value of isbn) (Return in JSON file)
 
-### Go to http://localhost:8080/api/books/category  for get book by ISBN (Where is "category" you should provide value of category) (Return in JSON file)
+### Go to http://localhost:8080/api/books/?category=exampleCategory  for get book by ISBN (Where is "exampleCategory" you should provide value of category) (Return in JSON file)
 
 ### Go to http://localhost:8080/api/booksratings for get book authors ratings. (Return in JSON file)
 
